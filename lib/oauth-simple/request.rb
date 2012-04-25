@@ -38,7 +38,8 @@ module OAuthSimple
         'oauth_version' => VERSION
       }
       options.merge!(defaults)
-      instance = new(:http_url => url, :parameters => options)
+      method = options.delete('http_method') if options['http_method']
+      instance = new(:http_url => url, :http_method => method, :parameters => options)
       instance.set_parameter('oauth_token', token.key) if token
       instance.consumer = consumer
       return instance
